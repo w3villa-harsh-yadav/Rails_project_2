@@ -1,0 +1,48 @@
+<%= render 'layouts/messages'%>
+
+<h1 class="heading">My Portfolio</h1>
+
+<div class="search-stocks">
+  <p class="inner-content">Search Stocks</p>
+  <%= form_tag search_stock_path ,remote: true, method: :get do %>
+    <div class="input-group mb-3">
+      <%= text_field_tag :stock,
+      params[:stock],
+      placeholder: "Search Stock",
+      autofocus: true,
+      class: "form-control" %>
+      <button class="btn btn-primary" type="submit" id="button-addon2">
+        <%= fa_icon "search" %>
+      </button>
+    </div>
+  <% end %>
+</div>
+
+<% if !@tracked_stocks.empty? %>
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Ticker</th>
+        <th scope="col">Name</th>
+        <th scope="col">Last_price</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tracked_stocks.each do |stock|%>
+        <tr>
+          <td scope="col"><%= stock.ticker %></td>
+          <td scope="col"><%= stock.name %></td>
+          <td scope="col"><%= stock.last_price %></td>
+          <td scope="col"><%= button_to "Remove", user_stock_path(stock.id), class: "btn btn-danger", method: :delete%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div>You currently does not have any stocks related to your account.</div>
+<% end %>
+
+<div id="results">
+
+</div>

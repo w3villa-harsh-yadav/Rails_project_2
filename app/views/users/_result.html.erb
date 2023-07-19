@@ -1,0 +1,16 @@
+<div class="messages-box" style="width: 30rem;">
+  <%= render 'layouts/messages'%>
+</div>
+<% if stock %>
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Ticker:
+        <%= stock.ticker %></li>
+      <li class="list-group-item">Name:
+        <%= stock.name %></li>
+      <li class="list-group-item">Price:
+        <%= stock.last_price %></li>
+      <li class="list-group-item"><%= button_to "Add to account", user_stocks_path(user: current_user,stock: stock), class: "btn btn-primary", method: :post %></li> 
+    </ul>
+  </div>
+<% end %>
